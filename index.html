@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logic Arena | Verilog Quiz</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#"><span class="brand-icon">⌁</span><span>LOGIC<span class="accent">ARENA</span><small>VERILOG QUIZ LAB</small></span></a>
+    <div class="top-status"><span class="live-dot"></span> LOCAL SIMULATOR <span class="top-divider">|</span> <span id="headerScore">0 XP</span></div>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <div class="profile-chip"><div class="avatar">LA</div><div><strong>Logic Learner</strong><small>Rookie Engineer</small></div></div>
+      <button class="nav active" data-view="quiz"><span>▦</span> Quiz Arena</button>
+      <button class="nav" data-view="lab"><span>⌘</span> Verilog Lab</button>
+      <button class="nav" data-view="guide"><span>◈</span> Quick Guide</button>
+      <div class="side-card"><div class="side-label">YOUR PROGRESS</div><div class="level-row"><strong id="levelText">LEVEL 01</strong><span id="progressText">0%</span></div><div class="progress-track"><div id="levelProgress" class="progress-fill"></div></div><p>Every correct answer brings you closer to digital mastery.</p></div>
+      <div class="sidebar-foot">BUILT FOR FUTURE<br><b>LOGIC THINKERS</b></div>
+    </aside>
+
+    <section class="content">
+      <section id="quizView" class="view">
+        <div class="hero">
+          <div><div class="eyebrow"><span class="tiny-star">✦</span> TRAIN YOUR BRAIN</div><h1>Think in <span class="gradient-text">Logic.</span><br>Code like an engineer.</h1><p>Level up your digital logic and Verilog skills, one challenge at a time.</p><div class="hero-tags"><span>◈ DIGITAL LOGIC</span><span>⌘ VERILOG BASICS</span><span>⚡ QUICK ROUNDS</span></div></div>
+          <div class="hero-art"><div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="chip"><span>101</span><b>LOGIC<br>CORE</b><span>010</span></div><i class="spark spark-a">✦</i><i class="spark spark-b">+</i><i class="spark spark-c">⌁</i></div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card"><span class="stat-icon purple">⚡</span><div><small>TOTAL XP</small><strong id="totalXP">0</strong></div></div>
+          <div class="stat-card"><span class="stat-icon cyan">◉</span><div><small>ACCURACY</small><strong id="accuracy">—</strong></div></div>
+          <div class="stat-card"><span class="stat-icon pink">♧</span><div><small>STREAK</small><strong id="streak">0</strong></div></div>
+        </div>
+        <div class="section-heading"><div><div class="eyebrow">THE CHALLENGE</div><h2>Quiz <span class="muted">Arena</span></h2></div><div class="round-pill"><span class="live-dot"></span> ROUND <b id="roundNo">01</b> / 08</div></div>
+        <div class="quiz-card" id="quizCard">
+          <div class="question-top"><span class="question-count" id="questionCount">QUESTION 01 / 08</span><span class="timer">◷ <b id="timer">20</b>s</span></div>
+          <div class="question-meta"><span id="categoryBadge">DIGITAL LOGIC</span><span id="difficulty">EASY</span></div>
+          <h3 id="questionText">Loading question...</h3>
+          <div class="options" id="options"></div>
+          <div class="quiz-bottom"><span id="feedback" aria-live="polite">SELECT AN ANSWER TO CONTINUE</span><button class="primary-btn" id="nextBtn" disabled>Next challenge <span>→</span></button></div>
+        </div>
+        <div id="resultCard" class="result-card hidden"><div class="result-emblem">✦</div><div class="eyebrow">ROUND COMPLETE</div><h2 id="resultTitle">Great run!</h2><p id="resultSummary"></p><div class="result-stats"><div><small>SCORE</small><strong id="finalScore">0/8</strong></div><div><small>XP EARNED</small><strong id="finalXP">0</strong></div><div><small>ACCURACY</small><strong id="finalAccuracy">0%</strong></div></div><button class="primary-btn" id="restartBtn">Play again <span>↻</span></button></div>
+      </section>
+
+      <section id="labView" class="view hidden">
+        <div class="section-heading lab-heading"><div><div class="eyebrow">HANDS-ON PRACTICE</div><h2>Verilog <span class="gradient-text">Lab</span></h2><p class="subtext">Write a small Verilog testbench, then compile and run it with Icarus Verilog.</p></div><span class="lab-badge"><span class="live-dot"></span> LOCAL ENGINE</span></div>
+        <div class="lab-card"><div class="editor-top"><div class="window-dots"><i></i><i></i><i></i></div><span>main.v</span><span class="language-tag">VERILOG</span></div><textarea id="codeEditor" spellcheck="false" aria-label="Verilog code editor">module testbench;
+  reg a, b;
+  wire y;
+
+  assign y = a & b;
+
+  initial begin
+    $display("A B | Y");
+    a = 0; b = 0; #1; $display("%b %b | %b", a, b, y);
+    a = 0; b = 1; #1; $display("%b %b | %b", a, b, y);
+    a = 1; b = 0; #1; $display("%b %b | %b", a, b, y);
+    a = 1; b = 1; #1; $display("%b %b | %b", a, b, y);
+    $finish;
+  end
+endmodule</textarea><div class="editor-actions"><span>TIP: Click Run to compile with iverilog and execute with vvp.</span><button id="runBtn" class="primary-btn">▶ Run simulation</button></div></div>
+        <div class="output-card"><div class="output-head"><span><i class="terminal-icon">›_</i> SIMULATION OUTPUT</span><span id="runStatus" class="status-idle">READY</span></div><pre id="simOutput">Your simulation output will appear here.</pre></div>
+        <div class="notice"><b>⚠ Local project note</b><p>This lab runs code on your own computer through a local Python server. Keep it local; don't publish this code-execution endpoint publicly without proper security controls.</p></div>
+      </section>
+
+      <section id="guideView" class="view hidden">
+        <div class="section-heading"><div><div class="eyebrow">START HERE</div><h2>Quick <span class="gradient-text">Guide</span></h2><p class="subtext">A beginner-friendly map of the concepts used in this project.</p></div></div>
+        <div class="guide-grid">
+          <article class="guide-card"><span class="guide-number">01</span><h3>Logic gates</h3><p>AND gives 1 only when both inputs are 1. OR gives 1 when at least one input is 1. NOT flips the input.</p><code>assign y = a & b;</code></article>
+          <article class="guide-card"><span class="guide-number">02</span><h3>Verilog module</h3><p>A module describes a digital block. It can define inputs, outputs and the logic connecting them.</p><code>module gate(input a, b, output y);</code></article>
+          <article class="guide-card"><span class="guide-number">03</span><h3>Icarus Verilog</h3><p><b>iverilog</b> compiles your Verilog source. <b>vvp</b> runs the compiled simulation.</p><code>iverilog -o sim.out main.v</code></article>
+          <article class="guide-card"><span class="guide-number">04</span><h3>Testbench</h3><p>A testbench supplies test inputs and prints results. Use <code>$display</code> to show text in the terminal.</p><code>$display("Y=%b", y);</code></article>
+        </div>
+        <div class="notice"><b>How this website uses Icarus Verilog</b><p>The quiz runs in the browser. The Verilog Lab sends code to a local Flask backend, which calls Icarus Verilog to compile and run it. This demonstrates a real connection between the web app and the simulator.</p></div>
+      </section>
+    </section>
+  </main>
+  <footer>LOGIC ARENA <span>•</span> LEARN. SIMULATE. LEVEL UP.</footer>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
